@@ -1,4 +1,4 @@
-![Logo DigitalNAO x Tecmilenio.](./images/NAO_Tecmilenio.svg)
+![Logo DigitalNAO x Tecmilenio.](./NAO_Tecmilenio.svg)
 
 # Reto 2: Comandos para servidores y bases de datos
 Se presenta a continuación, la documentación de [***Google Scholar API***](https://serpapi.com/google-scholar-api) a través de ***SerpAPI***. Además, se incluye un proyecto en Java con conexión a una base de datos. 
