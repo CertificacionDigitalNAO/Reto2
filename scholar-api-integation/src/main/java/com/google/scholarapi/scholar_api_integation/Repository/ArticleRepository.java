@@ -9,29 +9,31 @@ import org.springframework.stereotype.Repository;
 import com.google.scholarapi.scholar_api_integation.Entity.Article;
 
 /**
- * Repository interface for {@link Article} entities.
+ * Interfaz de repositorio para entidades {@link Article}.
  * <p>
- * This interface extends {@link JpaRepository} to provide CRUD operations
- * for {@link Article} entities.
+ * Esta interfaz extiende {@link JpaRepository} para proporcionar operaciones
+ * CRUD
+ * para entidades {@link Article}.
  * </p>
  */
 @Repository
 public interface ArticleRepository extends JpaRepository<Article, String> {
 
     /**
-     * Finds an article by its unique article ID.
+     * Encuentra un artículo por su ID único.
      *
-     * @param articleId the unique ID of the article
-     * @return an {@link Optional} containing the found {@link Article}, or empty if
-     *         no article found
+     * @param articleId el ID único del artículo
+     * @return un {@link Optional} que contiene el {@link Article} encontrado, o
+     *         vacío si
+     *         no se encuentra ningún artículo
      */
     Optional<Article> findByArticleId(String articleId);
 
     /**
-     * Finds all articles by the author's ID.
+     * Encuentra todos los artículos por el ID del autor.
      *
-     * @param authorId the unique ID of the author
-     * @return a list of articles associated with the given author ID
+     * @param authorId el ID único del autor
+     * @return una lista de artículos asociados con el ID del autor dado
      */
     List<Article> findByAuthorAuthorId(String authorId);
 }

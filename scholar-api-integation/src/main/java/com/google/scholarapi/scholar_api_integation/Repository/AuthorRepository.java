@@ -8,20 +8,23 @@ import org.springframework.stereotype.Repository;
 import com.google.scholarapi.scholar_api_integation.Entity.Author;
 
 /**
- * Repository interface for {@link Author} entities.
+ * Interfaz de repositorio para entidades {@link Author}.
  * <p>
- * This interface extends {@link JpaRepository} to provide CRUD operations
- * for {@link Author} entities.
+ * Esta interfaz extiende {@link JpaRepository} para proporcionar operaciones
+ * CRUD
+ * para entidades {@link Author}.
  * </p>
  */
 @Repository
 public interface AuthorRepository extends JpaRepository<Author, String> {
 
     /**
-     * Finds an author by their unique author ID.
+     * Encuentra un autor por su ID único.
      *
-     * @param authorId the unique ID of the author
-     * @return an {@link Optional} containing the found {@link Author}, or empty if no author found
+     * @param authorId el ID único del autor
+     * @return un {@link Optional} que contiene el {@link Author} encontrado, o
+     *         vacío si
+     *         no se encuentra ningún autor
      */
     Optional<Author> findByAuthorId(String authorId);
 }

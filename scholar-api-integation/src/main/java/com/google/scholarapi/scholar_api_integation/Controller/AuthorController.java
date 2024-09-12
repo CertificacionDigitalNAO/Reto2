@@ -1,6 +1,7 @@
 package com.google.scholarapi.scholar_api_integation.Controller;
 
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,53 +14,47 @@ import com.google.scholarapi.scholar_api_integation.Service.SerpApiService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+/**
+ * Controlador para manejar las solicitudes relacionadas con los autores.
+ */
 @RestController
 @RequestMapping("/api/authors")
 public class AuthorController {
 
+    /**
+     * Servicio para manejar las operaciones relacionadas con los autores.
+     */
     @Autowired
     private AuthorService authorService;
 
-    @Autowired
-    private SerpApiService serpApiService; // Servicio para manejar las peticiones a SerpAPI
-
     /**
-     * Está enfocado en obtener un autor desde la base de datos utilizando el
-     * authorId. No hay ninguna interacción directa con la API externa de SerpApi
-     * aquí, lo cual indica que este endpoint solo sirve para consultar autores ya
-     * guardados en la base de datos.
-     * 
-     * @param authorId
-     * @return
+     * Servicio para manejar las peticiones a SerpAPI.
      */
-    @GetMapping("/{authorId}")
-    public ResponseEntity<Author> getAuthor(@PathVariable String authorId) {
-        return authorService.getAuthorById(authorId)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
-    }
+    @Autowired
+    private SerpApiService serpApiService;
 
     /**
-     * Mi implementación está diseñada para obtener los datos de un autor desde
-     * SerpApi y guardar esos datos en la base de datos. La funcionalidad está más
-     * orientada a buscar datos en tiempo real desde una API externa y luego
-     * persistirlos.
+     * Endpoint para obtener y guardar los datos de un autor.
      * 
-     * @param authorId
-     * @return
+     * @param authorId el ID único del autor
+     * @return una {@link ResponseEntity} con el resultado de la operación
      */
     @GetMapping("/fetch-author/{authorId}")
-    public ResponseEntity<String> fetchAndSaveAuthor(@PathVariable String authorId) {
+    public ResponseEntity<?> fetchAndSaveAuthor(@PathVariable String authorId) {
         try {
-            serpApiService.fetchAndSaveAuthorData(authorId);
-            return ResponseEntity.ok("Datos del autor y artículos guardados exitosamente.");
+            // Directamente retornar lo que el servicio ya maneja
+            return serpApiService.fetchAndSaveAuthorData(authorId);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Error al obtener o guardar los datos.");
+                    .body("Error al obtener o guardar los datos: " + e.getMessage());
         }
     }
 
-    // Nuevo endpoint para obtener todos los autores
+    /**
+     * Endpoint para obtener todos los autores.
+     * 
+     * @return una {@link ResponseEntity} con la lista de todos los autores
+     */
     @GetMapping
     public ResponseEntity<List<Author>> getAllAuthors() {
         List<Author> authors = authorService.getAllAuthors();

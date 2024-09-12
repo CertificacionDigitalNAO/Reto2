@@ -10,10 +10,10 @@ import jakarta.persistence.Table;
 import lombok.Data;
 
 /**
- * Represents an article entity in the Scholar API integration.
+ * Representa una entidad de artículo en la integración de la API de Scholar.
  * <p>
- * Each article is associated with an author and includes metadata such as the
- * title, publication, and the number of citations.
+ * Cada artículo está asociado con un autor e incluye metadatos como el título,
+ * la publicación y el número de citaciones.
  * </p>
  */
 @Data
@@ -22,19 +22,19 @@ import lombok.Data;
 public class Article {
 
     /**
-     * The unique identifier for the article.
+     * El identificador único del artículo.
      */
     @Id
     @Column(name = "article_id", nullable = false, unique = true)
     private String articleId;
 
     /**
-     * The author of the article.
+     * El autor del artículo.
      * <p>
-     * This represents a many-to-one relationship with the Author entity, where multiple
-     * articles can be associated with a single author. The relationship is loaded
-     * lazily to improve performance when accessing article data without immediately
-     * fetching the author details.
+     * Esto representa una relación de muchos a uno con la entidad Author, donde
+     * múltiples artículos pueden estar asociados con un solo autor. La relación se
+     * carga de manera perezosa para mejorar el rendimiento al acceder a los datos
+     * del artículo sin obtener inmediatamente los detalles del autor.
      * </p>
      */
     @ManyToOne(fetch = FetchType.LAZY)
@@ -42,28 +42,29 @@ public class Article {
     private Author author;
 
     /**
-     * The title of the article.
+     * El título del artículo.
      */
     @Column(nullable = false, length = 500)
     private String title;
 
     /**
-     * The publication in which the article was published.
+     * La publicación en la que se publicó el artículo.
      */
     @Column(columnDefinition = "TEXT")
     private String publication;
 
     /**
-     * The number of times the article has been cited in other works or publications.
+     * El número de veces que el artículo ha sido citado en otros trabajos o
+     * publicaciones.
      */
     @Column(name = "cited_by")
     private Integer citedBy;
 
     /**
-     * The URL link to the article.
+     * El enlace URL al artículo.
      * <p>
-     * The length is set to 2083 characters, which is the maximum URL length supported
-     * by most modern web browsers.
+     * La longitud está establecida en 2083 caracteres, que es la longitud máxima
+     * de URL soportada por la mayoría de los navegadores web modernos.
      * </p>
      */
     @Column(name = "link", length = 2083)
